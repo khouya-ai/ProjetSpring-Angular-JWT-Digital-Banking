@@ -1,5 +1,6 @@
 package khouya.site.banking.entities;
 import jakarta.persistence.*;
+import khouya.site.banking.enums.OperationType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,4 +24,5 @@ public class AccountOperation {
 
     @ManyToOne
     private BankAccount bankAccount;
+    private String description;
 }

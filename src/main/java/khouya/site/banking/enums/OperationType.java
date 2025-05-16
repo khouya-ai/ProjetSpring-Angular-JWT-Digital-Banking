@@ -1,4 +1,4 @@
-package khouya.site.banking.entities;
+package khouya.site.banking.enums;
 
 public enum OperationType {
     CREDIT, DEBIT

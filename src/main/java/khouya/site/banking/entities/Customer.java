@@ -1,5 +1,6 @@
 package khouya.site.banking.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -20,5 +21,6 @@ public class Customer {
     private String email;
 
     @OneToMany(mappedBy = "customer")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<BankAccount> bankAccounts;
 }

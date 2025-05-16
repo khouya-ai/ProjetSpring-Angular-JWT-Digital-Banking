@@ -1,5 +1,6 @@
 package khouya.site.banking.entities;
 import jakarta.persistence.*;
+import khouya.site.banking.enums.AccountStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,6 @@ public abstract class BankAccount {
     @ManyToOne
     private Customer customer;
 
-    @OneToMany(mappedBy = "bankAccount")
+    @OneToMany(mappedBy = "bankAccount", fetch = FetchType.EAGER)
     private List<AccountOperation> accountOperations;
 }
