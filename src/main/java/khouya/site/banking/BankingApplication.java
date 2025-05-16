@@ -1,5 +1,6 @@
 package khouya.site.banking;
 
+import khouya.site.banking.dtos.CustomerDTO;
 import khouya.site.banking.entities.*;
 import khouya.site.banking.enums.AccountStatus;
 import khouya.site.banking.enums.OperationType;
@@ -33,7 +34,7 @@ public class BankingApplication {
 
 
             Stream.of("Soulaimane", "Ismail", "Sara", "Youssef").forEach(name -> {
-                Customer customerDTO = new Customer();
+                CustomerDTO customerDTO = new CustomerDTO();
                 customerDTO.setId(UUID.randomUUID().toString());
                 customerDTO.setName(name);
                 customerDTO.setEmail(name + "@gmail.com");

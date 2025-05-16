@@ -13,29 +13,4 @@ public class BankAccountController {
     @Autowired
     private BankAccountService bankAccountService;
 
-    @PostMapping
-    public BankAccount saveBankAccount(@RequestBody BankAccount bankAccount) {
-        return bankAccountService.saveBankAccount(bankAccount);
-    }
-
-    @GetMapping
-    public List<BankAccount> listBankAccounts() {
-        return bankAccountService.listBankAccounts();
-    }
-
-    @GetMapping("/{id}")
-    public BankAccount getBankAccount(@PathVariable String id) {
-        return bankAccountService.getBankAccount(id);
-    }
-
-    @PutMapping("/{id}")
-    public BankAccount updateBankAccount(@PathVariable String id, @RequestBody BankAccount bankAccount) {
-        bankAccount.setId(id);
-        return bankAccountService.updateBankAccount(bankAccount);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteBankAccount(@PathVariable String id) {
-        bankAccountService.deleteBankAccount(id);
-    }
 } 
