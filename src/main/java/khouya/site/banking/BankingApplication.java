@@ -1,6 +1,9 @@
 package khouya.site.banking;
 
+import khouya.site.banking.dtos.BankAccountDTO;
+import khouya.site.banking.dtos.CurrentBankAccountDTO;
 import khouya.site.banking.dtos.CustomerDTO;
+import khouya.site.banking.dtos.SavingBankAccountDTO;
 import khouya.site.banking.entities.*;
 import khouya.site.banking.enums.AccountStatus;
 import khouya.site.banking.enums.OperationType;
@@ -50,10 +53,15 @@ public class BankingApplication {
             });
 
             try {
-                List<BankAccount> bankAccountList = bankAccountService.getListBankAccounts();
-                for (BankAccount bankAccount : bankAccountList) {
+                List<BankAccountDTO> bankAccountList = bankAccountService.getListBankAccounts();
+                for (BankAccountDTO bankAccount : bankAccountList) {
                     for (int i = 0; i < 10; i++) {
-                        String accountId = bankAccount.getId();
+                        String accountId;
+                        if(bankAccount instanceof SavingBankAccountDTO) {
+                            accountId = ((SavingBankAccountDTO) bankAccount).getId();
+                        } else {
+                            accountId = ((CurrentBankAccountDTO) bankAccount).getId();
+                        }
 
                         bankAccountService.credit(
                                 accountId,
@@ -90,7 +98,7 @@ public class BankingApplication {
                 CurrentAccount currentAccount = new CurrentAccount();
                 currentAccount.setId(UUID.randomUUID().toString());
                 currentAccount.setBalance(Math.random() * 90000);
-                currentAccount.setCreatedAt(new Date());
+                currentAccount.setCreatedDate(new Date());
                 currentAccount.setStatus(AccountStatus.CREATED);
                 currentAccount.setCustomer(customer);
                 currentAccount.setOverDraft(9000);
@@ -99,7 +107,7 @@ public class BankingApplication {
                 SavingAccount savingAccount = new SavingAccount();
                 savingAccount.setId(UUID.randomUUID().toString());
                 savingAccount.setBalance(Math.random() * 120000);
-                savingAccount.setCreatedAt(new Date());
+                savingAccount.setCreatedDate(new Date());
                 savingAccount.setStatus(AccountStatus.CREATED);
                 savingAccount.setCustomer(customer);
                 savingAccount.setInterestRate(5.5);
@@ -109,7 +117,7 @@ public class BankingApplication {
             bankAccountRepository.findAll().forEach(acc -> {
                 for (int i = 0; i < 5; i++) {
                     AccountOperation accountOperation = new AccountOperation();
-                    accountOperation.setDate(new Date());
+                    accountOperation.setOperationDate(new Date());
                     accountOperation.setAmount(Math.random() * 12000);
                     accountOperation.setType(Math.random() > 0.5 ? OperationType.DEBIT : OperationType.CREDIT);
                     accountOperation.setBankAccount(acc);
@@ -121,7 +129,7 @@ public class BankingApplication {
             System.out.println("***************************************");
             System.out.println("Bank Account ID: " + ba.getId());
             System.out.println("Bank Account Balance: " + ba.getBalance());
-            System.out.println("Bank Account Created At: " + ba.getCreatedAt());
+            System.out.println("Bank Account Created At: " + ba.getCreatedDate());
             System.out.println("Bank Account Status: " + ba.getStatus());
             System.out.println("Bank Account Customer: " + ba.getCustomer().getName());
             if (ba instanceof SavingAccount) {
@@ -132,7 +140,7 @@ public class BankingApplication {
             System.out.println("Operations: ");
 
             ba.getAccountOperations().forEach(op ->
-                    System.out.printf("%d %s  %.2f %s%n", op.getId(), op.getDate(), op.getAmount(), op.getType())
+                    System.out.printf("%d %s  %.2f %s%n", op.getId(), op.getOperationDate(), op.getAmount(), op.getType())
             );
 
         };

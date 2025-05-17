@@ -16,7 +16,7 @@ import java.util.List;
 public abstract class BankAccount {
     @Id
     private String id;
-    private Date createdAt;
+    private Date createdDate;
     private double balance;
     private String currency;
 
