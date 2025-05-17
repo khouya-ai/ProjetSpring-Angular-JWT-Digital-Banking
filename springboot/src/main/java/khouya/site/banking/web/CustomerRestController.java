@@ -35,7 +35,7 @@ public class CustomerRestController {
     }
     //@PostAuthorize("hasAuthority('ADMIN') or hasAuthority('CUSTOMER')")
     @GetMapping("/customers/{id}")
-    public CustomerDTO getCustomer(@PathVariable(name = "id") String customerId) throws CustomerNotFoundException {
+    public CustomerDTO getCustomer(@PathVariable(name = "id") Long customerId) throws CustomerNotFoundException {
         CustomerDTO customerDTO = bankAccountService.getCustomer(customerId);
         return customerDTO;
     }
@@ -47,13 +47,13 @@ public class CustomerRestController {
     }
 
     @PutMapping("/customers/{customerId}")
-    public CustomerDTO updateCustomer(@PathVariable(name = "customerId") String customerId, @RequestBody CustomerDTO customerDTO) {
+    public CustomerDTO updateCustomer(@PathVariable(name = "customerId") Long customerId, @RequestBody CustomerDTO customerDTO) {
         customerDTO.setId(customerId);
         return bankAccountService.updateCustomer(customerDTO);
     }
     //@PostAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/customers/{id}")
-    public void deleteCustomer(@PathVariable String id) throws CustomerNotFoundException {
+    public void deleteCustomer(@PathVariable Long id) throws CustomerNotFoundException {
         bankAccountService.deleteCustomer(id);
     }
 }

@@ -12,8 +12,8 @@ import java.util.List;
 public interface BankAccountService {
     CustomerDTO saveCustomer(CustomerDTO customerDTO);
 
-    CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, double overDraft, String customerId) throws CustomerNotFoundException;
-    SavingBankAccountDTO saveSavingBankAccount(double initialBalance, double interestRate, String customerId) throws CustomerNotFoundException;
+    CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundException;
+    SavingBankAccountDTO saveSavingBankAccount(double initialBalance, double interestRate, Long customerId) throws CustomerNotFoundException;
 
     BankAccountDTO updateBankAccount(String accountId, AccountStatus accountStatus) ;
 
@@ -29,11 +29,11 @@ public interface BankAccountService {
 
     List<BankAccountDTO> getListBankAccounts();
 //
-    CustomerDTO getCustomer(String customerId) throws CustomerNotFoundException;
+    CustomerDTO getCustomer(Long customerId) throws CustomerNotFoundException;
 //
     CustomerDTO updateCustomer(CustomerDTO customerDTO);
 
-    void deleteCustomer(String customerId) throws CustomerNotFoundException;
+    void deleteCustomer(Long customerId) throws CustomerNotFoundException;
 //
     List<AccountOperationDTO> getAccountHistoryByList(String accountId);
 //

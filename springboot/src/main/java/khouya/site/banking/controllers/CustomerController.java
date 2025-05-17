@@ -24,18 +24,18 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public Customer getCustomer(@PathVariable String id) {
+    public Customer getCustomer(@PathVariable Long id) {
         return customerService.getCustomer(id);
     }
 
     @PutMapping("/{id}")
-    public Customer updateCustomer(@PathVariable String id, @RequestBody Customer customer) {
+    public Customer updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
         customer.setId(id);
         return customerService.updateCustomer(customer);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCustomer(@PathVariable String id) {
+    public void deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
     }
 } 

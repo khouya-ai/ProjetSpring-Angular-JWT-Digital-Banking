@@ -53,7 +53,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, double overDraft, String customerId) throws CustomerNotFoundException {
+    public CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundException {
         Customer customer = customerRepository.findById(customerId).orElse(null);
         if (customer == null) {
             throw new CustomerNotFoundException("Customer not found");
@@ -71,7 +71,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public SavingBankAccountDTO saveSavingBankAccount(double initialBalance, double interestRate, String customerId) throws CustomerNotFoundException {
+    public SavingBankAccountDTO saveSavingBankAccount(double initialBalance, double interestRate, Long customerId) throws CustomerNotFoundException {
         Customer customer = customerRepository.findById(customerId).orElse(null);
         if (customer == null) {
             throw new CustomerNotFoundException("Customer not found");
@@ -187,7 +187,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public CustomerDTO getCustomer(String customerId) throws CustomerNotFoundException {
+    public CustomerDTO getCustomer(Long customerId) throws CustomerNotFoundException {
         Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFoundException("Customer not found with this id : " + customerId));
         return dtoMapper.fromCustomer(customer);
     }
@@ -201,7 +201,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public void deleteCustomer(String customerId) throws CustomerNotFoundException {
+    public void deleteCustomer(Long customerId) throws CustomerNotFoundException {
         customerRepository.findById(customerId).orElseThrow(
                 () -> new CustomerNotFoundException("Customer not found with this id: " + customerId));
         customerRepository.deleteById(customerId);

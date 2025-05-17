@@ -38,7 +38,6 @@ public class BankingApplication {
 
             Stream.of("Soulaimane", "Ismail", "Sara", "Youssef").forEach(name -> {
                 CustomerDTO customerDTO = new CustomerDTO();
-                customerDTO.setId(UUID.randomUUID().toString());
                 customerDTO.setName(name);
                 customerDTO.setEmail(name + "@gmail.com");
                 bankAccountService.saveCustomer(customerDTO);
@@ -88,7 +87,6 @@ public class BankingApplication {
         return args -> {
             Stream.of("Hassan", "Yassine", "Aicha").forEach(name -> {
                 Customer customer = new Customer();
-                customer.setId(UUID.randomUUID().toString());
                 customer.setName(name);
                 customer.setEmail(name + "@gmail.com");
                 customerRepository.save(customer);
