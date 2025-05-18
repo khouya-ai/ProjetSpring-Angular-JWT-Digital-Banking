@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {catchError, Observable, throwError} from 'rxjs';
+import {catchError, map, Observable, throwError} from 'rxjs';
 import {Customer} from '../model/customer.model';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {CustomerService} from '../services/customer.service';
@@ -43,8 +43,24 @@ export class CustomersComponent implements OnInit {
   }
 
 
-  handleDeleteCustomer(c:any) {
-
+  handleDeleteCustomer(c: Customer) {
+    let conf = confirm("Are you sure?");
+    if(!conf) return;
+    this.customerService.deleteCustomer(c.id).subscribe({
+      next : (resp) => {
+        this.customers=this.customers.pipe(
+          map(data=>{
+            let index=data.indexOf(c);
+            data.slice(index,1)
+            return data;
+          })
+        );
+      },
+      error : err => {
+        console.log(err);
+        alert(err.error.message);
+      }
+    })
   }
 
   handleCustomerAccounts(c:any) {
