@@ -23,8 +23,9 @@ public class CustomerRestController {
     }
 //    @PostAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/customers/search")
-    public List<Customer> searchCustomers(@RequestParam(name = "keyword", defaultValue = "") String keyword) {
+    public List<CustomerDTO> searchCustomers(@RequestParam(name = "keyword", defaultValue = "") String keyword) {
         log.info("Customers have been searched");
+        log.info("%" + keyword + "%");
         return bankAccountService.searchCustomers("%" + keyword + "%");
     }
 //    @PostAuthorize("hasAuthority('ADMIN')")
