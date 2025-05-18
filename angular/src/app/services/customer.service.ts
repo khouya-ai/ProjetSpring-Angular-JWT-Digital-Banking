@@ -14,4 +14,8 @@ export class CustomerService {
   public getCustomers():Observable<Array<Customer>>{
     return this.http.get<Array<Customer>>(this.backendHost+"/customers")
   }
+
+  public searchCustomers(keyword : string):Observable<Array<Customer>>{
+    return this.http.get<Array<Customer>>(this.backendHost+"/customers/search?keyword="+keyword)
+  }
 }
