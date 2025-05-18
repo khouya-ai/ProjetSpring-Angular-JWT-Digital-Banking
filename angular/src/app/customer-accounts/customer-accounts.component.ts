@@ -8,10 +8,8 @@ import {Account, AccountDetails} from '../model/account.model';
 @Component({
   selector: 'app-customer-accounts',
   imports: [
-    JsonPipe,
     NgIf,
     NgForOf,
-    SlicePipe,
     DecimalPipe,
     DatePipe
   ],

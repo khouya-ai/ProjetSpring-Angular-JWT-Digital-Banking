@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@CrossOrigin("*") // accepter tous les domaines
 public class CustomerRestController {
     private BankAccountService bankAccountService;
 
