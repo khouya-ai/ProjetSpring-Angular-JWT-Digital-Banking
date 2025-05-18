@@ -7,6 +7,7 @@ import khouya.site.banking.exceptions.CustomerNotFoundException;
 import khouya.site.banking.services.BankAccountService;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,38 +22,37 @@ public class CustomerRestController {
     public CustomerRestController(BankAccountService bankAccountService) {
         this.bankAccountService = bankAccountService;
     }
-//    @PostAuthorize("hasAuthority('ADMIN')")
+    @PostAuthorize("hasAuthority('SCOPE_USER')")
     @GetMapping("/customers/search")
     public List<CustomerDTO> searchCustomers(@RequestParam(name = "keyword", defaultValue = "") String keyword) {
-        log.info("Customers have been searched");
         log.info("%" + keyword + "%");
         return bankAccountService.searchCustomers("%" + keyword + "%");
     }
-//    @PostAuthorize("hasAuthority('ADMIN')")
+    @PostAuthorize("hasAuthority('SCOPE_USER')")
     @GetMapping("/customers")
     public List<CustomerDTO> customers() {
-        log.info("Customers' list have been returned");
         return bankAccountService.listCustomer();
     }
-    //@PostAuthorize("hasAuthority('ADMIN') or hasAuthority('CUSTOMER')")
+    @PostAuthorize("hasAuthority('SCOPE_USER')")
     @GetMapping("/customers/{id}")
     public CustomerDTO getCustomer(@PathVariable(name = "id") Long customerId) throws CustomerNotFoundException {
         CustomerDTO customerDTO = bankAccountService.getCustomer(customerId);
         return customerDTO;
     }
 
-    //@PostAuthorize("hasAuthority('ADMIN') or hasAuthority('CUSTOMER')")
+    @PostAuthorize("hasAuthority('SCOPE_ADMIN')")
     @PostMapping("/customers")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
         return bankAccountService.saveCustomer(customerDTO);
     }
 
+    @PostAuthorize("hasAuthority('SCOPE_ADMIN')")
     @PutMapping("/customers/{customerId}")
     public CustomerDTO updateCustomer(@PathVariable(name = "customerId") Long customerId, @RequestBody CustomerDTO customerDTO) {
         customerDTO.setId(customerId);
         return bankAccountService.updateCustomer(customerDTO);
     }
-    //@PostAuthorize("hasAuthority('ADMIN')")
+    @PostAuthorize("hasAuthority('SCOPE_ADMIN')")
     @DeleteMapping("/customers/{id}")
     public void deleteCustomer(@PathVariable Long id) throws CustomerNotFoundException {
         bankAccountService.deleteCustomer(id);
