@@ -1,1 +1,70 @@
-<p>customer-accounts works!</p>
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-12 mb-3">
+      <div class="card">
+        <div class="card-header">Customer Information</div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item">ID: {{customer.id}}</li>
+            <li class="list-group-item">Name: {{customer.name}}</li>
+            <li class="list-group-item">Email: {{customer.email}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card" *ngIf="accounts.length > 0">
+        <div class="card-header">Accounts</div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>ID</th>
+                  <th>Balance</th>
+                  <th>Status</th>
+                  <th>Created Date</th>
+                  <th>Features</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let account of accounts">
+                  <td>
+                    <span [class]="account.type === 'SavingAccount' ? 'badge bg-success' : 'badge bg-primary'">
+                      {{account.type === 'SavingAccount' ? 'Saving' : 'Current'}}
+                    </span>
+                  </td>
+                  <td>{{account.id | slice:0:8}}...</td>
+                  <td>{{account.balance | number:'1.2-2'}} $</td>
+                  <td>
+                    <span class="badge bg-info">{{account.status}}</span>
+                  </td>
+                  <td>{{account.createdDate | date:'short'}}</td>
+                  <td>
+                    <span *ngIf="account.type === 'SavingAccount'">
+                      Interest Rate: {{account.interestRate}}%
+                    </span>
+                    <span *ngIf="account.type === 'CurrentAccount'">
+                      Overdraft: {{account.overDraft | number:'1.2-2'}} $
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-success btn-sm me-1">Operations</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-warning" *ngIf="accounts.length === 0">
+        No accounts found for this customer
+      </div>
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{errorMessage}}
+      </div>
+    </div>
+  </div>
+</div>

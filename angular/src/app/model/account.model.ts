@@ -14,3 +14,13 @@ export interface AccountOperation {
   type: string;
   description: string;
 }
+
+export interface Account {
+  type: 'CurrentAccount' | 'SavingAccount';
+  id: string;
+  balance: number;
+  createdDate: string;
+  status: string;
+  interestRate?: number;  // Only for SavingAccount
+  overDraft?: number;     // Only for CurrentAccount
+}
