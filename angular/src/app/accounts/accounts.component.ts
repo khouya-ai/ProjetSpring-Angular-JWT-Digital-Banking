@@ -4,6 +4,7 @@ import {catchError, Observable, throwError} from "rxjs";
 import {AccountDetails} from '../model/account.model';
 import {AsyncPipe, DatePipe, DecimalPipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {AccountService} from '../services/account.service';
+import {AuthService} from '../services/auth.service';
 
 
 
@@ -29,7 +30,7 @@ export class AccountsComponent implements OnInit {
   operationFromGroup!: FormGroup;
   errorMessage!: string;
 
-  constructor(private fb: FormBuilder, private accountService: AccountService) {
+  constructor(private fb: FormBuilder, private accountService: AccountService,public authService:AuthService) {
   }
 
   ngOnInit(): void {

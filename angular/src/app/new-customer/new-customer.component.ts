@@ -3,14 +3,13 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {Customer} from "../model/customer.model";
 import {CustomerService} from "../services/customer.service";
 import {Router} from "@angular/router";
-import {JsonPipe, NgIf} from '@angular/common';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-new-customer',
   imports: [
     ReactiveFormsModule,
     NgIf,
-    JsonPipe
   ],
   templateUrl: './new-customer.component.html',
   styleUrls: ['./new-customer.component.css']
