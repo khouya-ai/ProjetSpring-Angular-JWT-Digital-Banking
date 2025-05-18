@@ -54,4 +54,30 @@ public class BankAccountRestController {
     }
 
 
+    @PostMapping("/accounts/debit")
+    public DebitDTO debit(@RequestBody DebitDTO debitDTO) throws BankAccountNotFoundException, BalanceNotSufficientException {
+        log.info("Debit is successful");
+        bankAccountService.debit(
+                debitDTO.getAccountId(),
+                debitDTO.getAmount(),
+                debitDTO.getDescription());
+
+        return debitDTO;
+    }
+    @PostMapping("/accounts/credit")
+    public CreditDTO credit(@RequestBody CreditDTO creditDTO) throws BankAccountNotFoundException, BalanceNotSufficientException {
+        log.info("Credit is successful");
+        bankAccountService.debit(
+                creditDTO.getAccountId(),
+                creditDTO.getAmount(),
+                creditDTO.getDescription());
+        return creditDTO;
+    }
+    @PostMapping("/accounts/transfer")
+    public void transfer(@RequestBody TransferRequestDTO transferRequestDTO) throws BankAccountNotFoundException, BalanceNotSufficientException {
+        this.bankAccountService.transfer(transferRequestDTO.getAccountTarget(), transferRequestDTO.getAccountSource(), transferRequestDTO.getAmount());
+    }
+
+
+
 }
