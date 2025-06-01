@@ -486,6 +486,8 @@ Les routes sont protégées par deux guards :
 
 ### Composant Customer-Accounts
 
+![accounts.png](imgs/accounts.png)
+
 Le composant `CustomerAccountsComponent` permet d'afficher les comptes d'un client spécifique :
 
 ```typescript
@@ -583,6 +585,13 @@ Cette implémentation permet de :
 Toutes ces fonctionnalités sont sécurisées et nécessitent une authentification valide pour être accessibles.
 
 ## Partie 3 : Sécuriser l'application avec un système d'authentification basé sur Spring Security et Json Web Token
+- Role Admin
+
+![admin_security.png](imgs/admin_security.png)
+
+- Role User
+
+![img.png](imgs/img.png)
 ````java
 @Configuration
 @EnableWebSecurity
