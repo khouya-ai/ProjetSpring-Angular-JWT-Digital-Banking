@@ -6,6 +6,7 @@ import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {CustomerService} from '../services/customer.service';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-customers',
@@ -23,7 +24,7 @@ export class CustomersComponent implements OnInit {
   errorMessage!: string;
   searchFormGroup : FormGroup | undefined;
 
-  constructor(private customerService:CustomerService, private fb : FormBuilder, private router : Router) { }
+  constructor(public authService:AuthService,private customerService:CustomerService, private fb : FormBuilder, private router : Router) { }
   ngOnInit(): void {
 
     this.searchFormGroup=this.fb.group({
@@ -50,6 +51,7 @@ export class CustomersComponent implements OnInit {
       next : (resp) => {
         this.customers=this.customers.pipe(
           map(data=>{
+            console.log(data)
             let index=data.indexOf(c);
             data.slice(index,1)
             return data;

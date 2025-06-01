@@ -24,7 +24,6 @@ public class CustomerRestController {
     @PostAuthorize("hasAuthority('SCOPE_USER')")
     @GetMapping("/customers/search")
     public List<CustomerDTO> searchCustomers(@RequestParam(name = "keyword", defaultValue = "") String keyword) {
-        log.info("%" + keyword + "%");
         return bankAccountService.searchCustomers("%" + keyword + "%");
     }
     @PostAuthorize("hasAuthority('SCOPE_USER')")

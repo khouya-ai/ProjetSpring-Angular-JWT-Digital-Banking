@@ -5,8 +5,7 @@ import {AccountDetails} from '../model/account.model';
 import {AsyncPipe, DatePipe, DecimalPipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {AccountService} from '../services/account.service';
 import {AuthService} from '../services/auth.service';
-
-
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-accounts',
@@ -30,7 +29,10 @@ export class AccountsComponent implements OnInit {
   operationFromGroup!: FormGroup;
   errorMessage!: string;
 
-  constructor(private fb: FormBuilder, private accountService: AccountService,public authService:AuthService) {
+  constructor(private fb: FormBuilder,
+              private accountService: AccountService,
+              public authService: AuthService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -42,7 +44,14 @@ export class AccountsComponent implements OnInit {
       amount: this.fb.control(0),
       description: this.fb.control(null),
       accountDestination: this.fb.control(null)
-    })
+    });
+
+    this.route.queryParams.subscribe(params => {
+      if (params['id']) {
+        this.accountFormGroup.patchValue({accountId: params['id']});
+        this.handleSearchAccount();
+      }
+    });
   }
 
   handleSearchAccount() {

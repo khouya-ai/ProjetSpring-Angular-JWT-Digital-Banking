@@ -46,4 +46,10 @@ export class CustomerAccountsComponent implements OnInit {
       }
     });
   }
+
+  handleOperations(accountId: string) {
+    this.router.navigate(['/admin/accounts'], { 
+      queryParams: { id: accountId }
+    });
+  }
 }
