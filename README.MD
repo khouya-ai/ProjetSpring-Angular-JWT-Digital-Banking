@@ -70,7 +70,7 @@ On souhaite créer une application qui permet de gérer des comptes bancaires. c
 >**Dans notre approche de gestion de l'héritage, une stratégie que nous avons utilisée est celle de la _"Single table"_. Avec cette approche, nous avons créé une seule table qui contient tous les attributs des trois classes concernées. Pour différencier les deux sous-types, nous avons ajouté une colonne spéciale appelée "colonne discriminante". Cette colonne nous permet de distinguer les instances appartenant aux différentes sous-classes au sein de la table unique.**
 
 ### Couche DAO
-> **Les entités JPA : Customer, BankAccount, Saving Account, CurrentAccount, AccountOperation**
+ **Les entités JPA : Customer, BankAccount, Saving Account, CurrentAccount, AccountOperation**
 _**Customer**_
 ```java
 @Entity
@@ -142,7 +142,7 @@ public class AccountOperation {
     private String description;
 }
 ```
-> **les interfaces JPA Repository pour accéder aux données basées sur Spring Data**
+ **les interfaces JPA Repository pour accéder aux données basées sur Spring Data**
 _**CustomerRepository**_
 ```java
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
@@ -167,14 +167,14 @@ public interface AccountOperationRepository extends JpaRepository<AccountOperati
 }
 ```
 
-> **Teste de la couche DAO**
+ **Teste de la couche DAO**
 ```java
 @Bean
     CommandLineRunner start(CustomerRepository customerRepository,
                             BankAccountRepository bankAccountRepository,
                             AccountOperationRepository accountOperationRepository) {
         return args -> {
-            Stream.of("Ouassima", "Oualid", "Mohamed").forEach(name -> {
+            Stream.of("Soulaimane", "Sara", "Ismail").forEach(name -> {
                 Customer customer = new Customer();
                 customer.setName(name);
                 customer.setEmail(name +"@gmail.com");
@@ -227,7 +227,6 @@ server.port=8080
 spring.main.allow-circular-references=true
 ```
 <div align="center">
-<img src="imgs/Customers.jpg" align="center" style="margin-top:1px;" width="40%"/>
 <img src="imgs/bank-accounts.jpg" align="center"  style="margin-top:1px;" width="60%"/>
 <img src="imgs/account-operations.jpg" align="center" style="margin-top:1px;" width="60%"/>
 </div>
@@ -237,24 +236,14 @@ spring.main.allow-circular-references=true
 <img src="imgs/services.jpg"  />
 </div>
 
-> **Création des objets DTO**
+ **Création des objets DTO**
 
 <div align="center">
 <img src="imgs/Dtos.jpg" />
 </div>
 
-_**Customer DTO**_,  _**Bank Account DTO**_, _**Cusrrent Account DTO**_, _**Saving Account DTO**_, _**Account OPerations DTO**_, _**Account History DTO**_
-  <div align="center">
-  <img src="imgs/dtos1.jpg" />
-   </div>
 
-_**Operations DTOS**_
-<div align="center">
- <img src="imgs/operationsdto.jpg" />
- </div>
-
-
-> **Création des mappers**
+ **Création des mappers**
 
 ```java
 @Service
@@ -316,7 +305,7 @@ public class BankAccountMapperImpl {
     }
 }
  ```
-> **Définition les opérations du service**
+ **Définition les opérations du service**
 
 _**Interface BankAccountService**_
 
@@ -408,7 +397,7 @@ public interface BankAccountService {
     }
    ```
 
-> **Teste les endpoints à l'aide d'outils comme Swagger**
+ **Teste les endpoints à l'aide d'outils comme Swagger**
 
 ```java
 L'interface de test de notre API, générée par Swagger, est accessible via http://localhost:8080/swagger-ui/index.html
@@ -430,7 +419,7 @@ L'interface de test de notre API, générée par Swagger, est accessible via htt
 
 >La classe SecurityConfig configure la sécurité dans une application Java avec Spring Security. Les principales étapes incluent la désactivation de CSRF, la configuration de la politique >de sessions, la gestion de CORS, l'autorisation d'accès à certaines URL et l'ajout de filtres JWT personnalisés pour l'authentification et l'autorisation.
 
-> **_Security dans OpenAPI_**
+ **_Security dans OpenAPI_**
 
 > Si vous accédez à Swagger UI et que vous voyez le bouton "Authorize", cela signifie que l'API que vous consultez nécessite une authentification. Pour vous authentifier et autoriser votre application
 > Donc L'annotation @SecurityScheme est utilisée pour définir un schéma d'authentification dans le contexte de l'API Digital Bank.
